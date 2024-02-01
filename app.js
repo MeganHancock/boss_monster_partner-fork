@@ -19,7 +19,8 @@ const boss = {
     health: 100,
     maxHealth: 100,
     damage: 5,
-    level: 1
+    level: 1,
+    goldReward: '🌞'
 }
 
 function attackBoss() {
@@ -30,6 +31,8 @@ function attackBoss() {
     if (boss.health <= 0) {
         boss.maxHealth += 10
         boss.health = 100
+        boss.level++
+        boss.goldReward += '🌞'
     }
     console.log('boss health', boss.health)
     console.log('boss max health', boss.maxHealth)
@@ -47,8 +50,9 @@ function bossFightBack() {
         hero.health -= boss.damage
         if (hero.health <= 0) {
             hero.health = 0
+            return
         }
-        console.log('hero health', hero.health)
+        // console.log('hero health', hero.health)
 
     }
 
@@ -57,22 +61,35 @@ function bossFightBack() {
     drawHeros()
 }
 
-function drawBoss() {
-    const bossIdElement = document.getElementById('boss')
-    const bossStatsClassElement = bossIdElement.querySelector('.stats')
-
-    bossStatsClassElement.innerText = `HP: ${boss.maxHealth}`
+function healHero(heroName) {
+    console.log(heroName)
+    const healedHero = heroes.find(hero => hero.name == heroName)
+    healedHero.health++
+    drawHeros()
 }
+
+
+// function drawBoss() {
+//     const bossIdElement = document.getElementById('boss')
+//     const bossStatsClassElement = bossIdElement.querySelector('.stats')
+
+//     bossStatsClassElement.innerText = `HP: ${boss.maxHealth} | Reward: ${boss.goldReward}`
+// }
 
 function drawHeros() {
     heroes.forEach(hero => {
         const heroElement = document.getElementById(hero.type)
         const heroStatsClassElement = heroElement?.querySelector('.stats')
 
-        console.log(heroStatsClassElement)
+        // console.log(heroStatsClassElement)
         heroStatsClassElement.innerText = `HP: ${hero.health}`
     })
 
+}
+
+function drawBoss() {
+    const bossElement = document.getElementById('bossStats')
+    bossElement.innerText = `HP: ${boss.maxHealth} | Reward: ${boss.goldReward} | Level: ${boss.level}`
 }
 
 drawBoss()
