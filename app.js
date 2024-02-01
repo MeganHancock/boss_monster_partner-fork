@@ -36,6 +36,7 @@ function attackBoss() {
 
     // console.log(combinedAttackDmg)
     drawBoss()
+    drawHeros()
 
 }
 function bossFightBack() {
@@ -50,16 +51,30 @@ function bossFightBack() {
         console.log('hero health', hero.health)
 
     }
+
     )
     drawBoss()
+    drawHeros()
 }
 
 function drawBoss() {
-    const bossElement = document.getElementById('boss')
-    const bossStatsElement = bossElement.querySelector('.stats')
+    const bossIdElement = document.getElementById('boss')
+    const bossStatsClassElement = bossIdElement.querySelector('.stats')
 
-    bossStatsElement.innerText = 'HP: ${ boss.maxHealth }%'
+    bossStatsClassElement.innerText = `HP: ${boss.maxHealth}`
+}
+
+function drawHeros() {
+    heroes.forEach(hero => {
+        const heroElement = document.getElementById(hero.type)
+        const heroStatsClassElement = heroElement?.querySelector('.stats')
+
+        console.log(heroStatsClassElement)
+        heroStatsClassElement.innerText = `HP: ${hero.health}`
+    })
+
 }
 
 drawBoss()
-// setInterval(bossFightBack, 500)
+drawHeros()
+setInterval(bossFightBack, 500)
